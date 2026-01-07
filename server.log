@@ -1,0 +1,12 @@
+2025/11/22 15:43:55 ✅ Database initialized successfully
+2025/11/22 15:43:55 🚀 Burma 2D App Config Server starting on port 8585...
+2025/11/22 15:43:55 📡 Main endpoint: http://localhost:8585/api/burma2d/config
+2025/11/22 15:43:55 💾 Database: ./appconfig.db (SQLite3)
+2025/11/22 15:43:55 🏥 Health check:  http://localhost:8585/health
+2025/11/22 15:43:55 ✅ Server ready to serve app configuration!
+2025/11/22 15:44:56 ✅ App config sent to client (ad timer: %d seconds) 60
+[GIN] 2025/11/22 - 15:44:56 | 200 |    2.925511ms |       127.0.0.1 | GET      "/api/burma2d/config"
+2025/11/22 15:45:14 ✅ Ad units updated successfully
+[GIN] 2025/11/22 - 15:45:14 | 200 |   15.908963ms |       127.0.0.1 | POST     "/api/burma2d/adunits"
+2025/11/22 15:45:28 ✅ App config sent to client (ad timer: %d seconds) 60
+[GIN] 2025/11/22 - 15:45:28 | 200 |     197.338µs |       127.0.0.1 | GET      "/api/burma2d/config"
