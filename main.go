@@ -562,6 +562,12 @@ func UpdateAppConfigHandler(c *gin.Context) {
 		return
 	}
 
+	// Update ad units
+	if err := UpdateAdUnits(&newConfig.AdUnits); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update ad units: " + err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Configuration updated successfully",
 		"config":  newConfig,
