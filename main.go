@@ -748,7 +748,7 @@ func main() {
 		})
 	})
 
-	port := "8585"
+	port := "8686"
 	log.Printf("🚀 2D Expect App Config Server starting on port %s...\n", port)
 	log.Printf("📡 Main endpoint: http://localhost:%s/api/2dexpect/config\n", port)
 	log.Printf("💾 Database: %s (SQLite3)\n", dbPath)
