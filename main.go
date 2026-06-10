@@ -22,7 +22,6 @@ type AppVersion struct {
 	ForceUpdate        bool     `json:"force_update"`
 	UpdateTitle        string   `json:"update_title"`
 	UpdateMessage      string   `json:"update_message"`
-	DownloadURL        string   `json:"download_url"`
 	WhatsNew           []string `json:"whats_new"`
 	ReleaseDate        string   `json:"release_date"`
 }
@@ -87,7 +86,6 @@ func InitDB(dbPath string) error {
 		force_update BOOLEAN NOT NULL,
 		update_title TEXT NOT NULL,
 		update_message TEXT NOT NULL,
-		download_url TEXT NOT NULL,
 		whats_new TEXT NOT NULL,
 		release_date TEXT NOT NULL,
 		updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -162,9 +160,9 @@ func insertDefaultData() error {
 		_, err = db.Exec(`
 			INSERT INTO app_version (
 				id, latest_version, latest_version_code, minimum_version_code,
-				force_update, update_title, update_message, download_url,
+				force_update, update_title, update_message,
 				whats_new, release_date
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 			1,
 			"1.7",
 			8,
@@ -172,7 +170,6 @@ func insertDefaultData() error {
 			false,
 			"🎉 New Update Available!",
 			"We've added exciting new features and improvements to enhance your experience!",
-			"https://play.google.com/store/apps/details?id=com.twod.expect",
 			string(whatsNewJSON),
 			time.Now().Format("2006-01-02"),
 		)
@@ -297,7 +294,7 @@ func GetAppVersion() (*AppVersion, error) {
 
 	err := db.QueryRow(`
 		SELECT latest_version, latest_version_code, minimum_version_code,
-		       force_update, update_title, update_message, download_url,
+		       force_update, update_title, update_message,
 		       whats_new, release_date
 		FROM app_version WHERE id = 1
 	`).Scan(
@@ -307,7 +304,6 @@ func GetAppVersion() (*AppVersion, error) {
 		&version.ForceUpdate,
 		&version.UpdateTitle,
 		&version.UpdateMessage,
-		&version.DownloadURL,
 		&whatsNewJSON,
 		&version.ReleaseDate,
 	)
@@ -339,7 +335,6 @@ func UpdateAppVersion(version *AppVersion) error {
 			force_update = ?,
 			update_title = ?,
 			update_message = ?,
-			download_url = ?,
 			whats_new = ?,
 			release_date = ?,
 			updated_at = CURRENT_TIMESTAMP
@@ -351,7 +346,6 @@ func UpdateAppVersion(version *AppVersion) error {
 		version.ForceUpdate,
 		version.UpdateTitle,
 		version.UpdateMessage,
-		version.DownloadURL,
 		string(whatsNewJSON),
 		version.ReleaseDate,
 	)
